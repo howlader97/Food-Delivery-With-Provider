@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.remon.food_delivery_with_provider"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

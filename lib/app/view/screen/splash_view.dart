@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery_with_provider/app/core/utils/app_text_styles.dart';
 
-import '../../core/utils/image_path.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -9,13 +8,13 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox.expand(
-        child: Stack(
-          children: [
-            Image.asset(ImagePath.splashBackground, fit: BoxFit.cover),
-            Center(child: Image.asset(ImagePath.splashIcon,height: 200.h,width: 200.w,)),
-          ],
-        ),
+      body: Column(
+        children: [
+          Center(child: Text("Splash",style: AppTextStyles.bold22,),),
+          ElevatedButton(onPressed: (){
+
+          }, child: Text('Go to login'),)
+        ],
       ),
     );
   }
