@@ -6,8 +6,8 @@ import '../../core/utils/app_colors.dart';
 import '../../core/utils/app_text_styles.dart';
 
 
-class SignupOtpView extends StatelessWidget {
-  SignupOtpView({super.key});
+class SignupOtpScreen extends StatelessWidget {
+  SignupOtpScreen({super.key});
 
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 

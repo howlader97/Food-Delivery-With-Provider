@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../core/app_route/app_route.dart';
 import '../../core/utils/app_colors.dart';
 import '../../core/utils/app_text_styles.dart';
 import '../../core/utils/image_path.dart';
 
 class SignUpScreen extends StatelessWidget {
-   SignUpScreen({super.key});
+  SignUpScreen({super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -196,49 +196,50 @@ class SignUpScreen extends StatelessWidget {
                       SizedBox(height: 16.h),
                       Text('Create Password', style: AppTextStyles.medium16),
                       SizedBox(height: 8.h),
-                       TextFormField(
-                          decoration: InputDecoration(
-                            hintText: 'Enter six digit or letter Password',
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                 Icons.visibility_off,
-                                color: AppColors.primaryColor,
-                              ),
-                              onPressed: (){  },)
+                      TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'Enter six digit or letter Password',
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              Icons.visibility_off,
+                              color: AppColors.primaryColor,
+                            ),
+                            onPressed: () {},
                           ),
-                          validator: (String? value) {
-                            if (value?.isEmpty ?? true) {
-                              return 'Enter your password';
-                            }
-                            return null;
-                          },
                         ),
+                        validator: (String? value) {
+                          if (value?.isEmpty ?? true) {
+                            return 'Enter your password';
+                          }
+                          return null;
+                        },
+                      ),
 
                       SizedBox(height: 16.h),
                       Text('Confirm Password', style: AppTextStyles.medium16),
                       SizedBox(height: 8.h),
-                     TextFormField(
+                      TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'Enter your Password',
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              Icons.visibility_off,
 
-                          decoration: InputDecoration(
-                            hintText: 'Enter your Password',
-                            suffixIcon: IconButton(
-                              icon: Icon(Icons.visibility_off,
-
-                                color: AppColors.primaryColor,
-                              ),
-                              onPressed:(){}
+                              color: AppColors.primaryColor,
                             ),
+                            onPressed: () {},
                           ),
-                          validator: (String? value) {
-                            if (value?.isEmpty ?? true) {
-                              return 'Enter your password';
-                            }
-                            if (value!.length != 6) {
-                              return 'Enter six letter or digit';
-                            }
-                            return null;
-                          },
                         ),
+                        validator: (String? value) {
+                          if (value?.isEmpty ?? true) {
+                            return 'Enter your password';
+                          }
+                          if (value!.length != 6) {
+                            return 'Enter six letter or digit';
+                          }
+                          return null;
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -253,17 +254,14 @@ class SignUpScreen extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                              onPressed: () {
-
-
-                              },
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                              ),
-                              child: Text('Sign Up'),
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
                             ),
+                          ),
+                          child: Text('Sign Up'),
+                        ),
                       ),
                       SizedBox(height: 30.h),
                       Text(
@@ -290,8 +288,9 @@ class SignUpScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-
+                          Navigator.pushNamed(context, RouteName.home);
                         },
+
                         child: Text(
                           "Sign In",
                           style: AppTextStyles.medium14.copyWith(

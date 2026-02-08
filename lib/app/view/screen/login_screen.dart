@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery_with_provider/app/controller/login_controller.dart';
 
 import '../../core/utils/app_colors.dart';
 import '../../core/utils/app_text_styles.dart';
 import '../../core/utils/image_path.dart';
 
-class LoginScreen extends StatelessWidget {
-   LoginScreen({super.key});
-final GlobalKey<FormState> _formKey=GlobalKey<FormState>();
+class LoginScreen extends ConsumerWidget {
+  LoginScreen({super.key});
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginController = ref.read(loginProvider.notifier,);
+    print("build");
     return Scaffold(
       backgroundColor: AppColors.whiteColor, //backgroundColor
       body: SafeArea(
@@ -34,7 +40,7 @@ final GlobalKey<FormState> _formKey=GlobalKey<FormState>();
                       Text('Email', style: AppTextStyles.medium16),
                       SizedBox(height: 8.h),
                       TextFormField(
-
+                        controller: loginController.userTEController,
                         decoration: InputDecoration(
                           hintText: 'Enter your email',
                         ),
@@ -48,39 +54,25 @@ final GlobalKey<FormState> _formKey=GlobalKey<FormState>();
                       SizedBox(height: 16.h),
                       Text('password', style: AppTextStyles.medium16),
                       SizedBox(height: 8.h),
-                       TextFormField(
-
-                          decoration: InputDecoration(
-                            hintText: 'Enter your Password',
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                     Icons.visibility_off,
-
-                                color: AppColors.primaryColor,
-                              ), onPressed: () {  },
-
+                      TextFormField(
+                        controller: loginController.passwordTEController,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your Password',
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              Icons.visibility_off,
+                              color: AppColors.primaryColor,
                             ),
+                            onPressed: () {},
                           ),
-                          validator: (String? value) {
-                            //check validity
-                            if (value?.isEmpty ?? true) {
-                              return 'Enter your password';
-                            }
-                            if (value!.length != 6) {
-                              return 'Enter six digit or letter';
-                            }
-                            return null;
-                          },
                         ),
-
+                      ),
 
                       SizedBox(height: 16.h),
                       Align(
                         alignment: Alignment.bottomRight,
                         child: GestureDetector(
-                          onTap: () {
-
-                          },
+                          onTap: () {},
                           child: Text(
                             'Forget Password',
                             style: AppTextStyles.medium16.copyWith(
@@ -98,19 +90,30 @@ final GlobalKey<FormState> _formKey=GlobalKey<FormState>();
                       SizedBox(height: 40.h),
                       SizedBox(
                         width: double.infinity,
-                        child: ElevatedButton(
-                              onPressed: () {
+                        child: Consumer(
+                          builder: (context, ref, child) {
+                            final loginState = ref.watch(loginProvider);
 
-                              },
+                            return ElevatedButton(
+                              onPressed: loginState.isLoading
+                                  ? null
+                                  : () {
+                                      if (_formKey.currentState!.validate()) {
+                                        loginController.getLogin(context);
+                                      }
+                                    },
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
-                              child: Text('Log In'),
-                            )
+                              child: loginState.isLoading
+                                  ? Center(child: CircularProgressIndicator())
+                                  : Text('Log In'),
+                            );
+                          },
                         ),
-
+                      ),
                       SizedBox(height: 35.h),
                       Text(
                         'Or Log In with',
@@ -120,11 +123,9 @@ final GlobalKey<FormState> _formKey=GlobalKey<FormState>();
                       ),
                       SizedBox(height: 35.h),
                       GestureDetector(
-                            onTap: () async {
-
-                            },
-                            child: Image.asset(ImagePath.googleIcon, scale: 4),
-                          ),
+                        onTap: () async {},
+                        child: Image.asset(ImagePath.googleIcon, scale: 4),
+                      ),
                       SizedBox(height: 25.h),
                     ],
                   ),
@@ -139,8 +140,7 @@ final GlobalKey<FormState> _formKey=GlobalKey<FormState>();
                           style: AppTextStyles.medium13,
                         ),
                         InkWell(
-                          onTap: () {
-                          },
+                          onTap: () {},
                           child: Text(
                             "Sign Up",
                             style: AppTextStyles.medium14.copyWith(

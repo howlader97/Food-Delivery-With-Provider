@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app/core/app_route/app_route.dart';
-import 'app/view/screen/splash_view.dart';
+import 'app/view/screen/splash_Screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: FoodApp()));
 }
 
@@ -18,9 +19,11 @@ class FoodApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return  MaterialApp(
+        return MaterialApp(
           debugShowCheckedModeBanner: false,
-         initialRoute: AppRoute.initialRoute
+         initialRoute: RouteName.splash,
+         routes: AppRoute.routes,
+
         );
       },
     );
